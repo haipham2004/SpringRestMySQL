@@ -3,6 +3,7 @@ package com.example.SpringRestMySQL.rest;
 import com.example.SpringRestMySQL.dto.NhanVienDTO;
 import com.example.SpringRestMySQL.dto.NhanVienResponse;
 import com.example.SpringRestMySQL.service.NhanVienService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class NhanVienController {
     }
 
     @PostMapping("")
-    public ResponseEntity<NhanVienDTO> save(@RequestBody NhanVienDTO nhanVienDTO) {
+    public ResponseEntity<NhanVienDTO> save(@Valid @RequestBody NhanVienDTO nhanVienDTO) {
         NhanVienDTO nhanVienDTOSave = nhanVienService.save(nhanVienDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(nhanVienDTOSave);
     }
@@ -59,13 +60,31 @@ public class NhanVienController {
         return ResponseEntity.ok("Delete success: " + id);
     }
 
-    @GetMapping("searchNhanVien/{query}")
+    @GetMapping("searchNhanVien")
     public ResponseEntity<List<NhanVienResponse>> searchNhanVien(@RequestParam("query") String query){
         return ResponseEntity.ok(nhanVienService.searchNhanVien(query));
     }
 
-    @GetMapping("searchNhanVienSQL/{query}")
+    @GetMapping("searchNhanVienSQL")
     public ResponseEntity<List<NhanVienResponse>> searchNhanVienSQL(@RequestParam("query") String query){
         return ResponseEntity.ok(nhanVienService.searchNhanVienSQL(query));
     }
+
+    @GetMapping("findByTenNhanVienAndTuoi")
+    public ResponseEntity<List<NhanVienResponse>> findByTenNhanVienAndTuoi(@RequestParam("ten") String ten,
+                                                                           @RequestParam("tuoi") int tuoi){
+        return ResponseEntity.ok(nhanVienService.findByTenNhanVienAndTuoi(ten,tuoi));
+    }
+
+    @GetMapping("findByTuoiGreaterThan")
+    public ResponseEntity<List<NhanVienResponse>> findByTuoiGreaterThan(@RequestParam("tuoi") int tuoi){
+        return ResponseEntity.ok(nhanVienService.findByTuoiGreaterThan(tuoi));
+    }
+
+    @GetMapping("findByTuoiLessThan")
+    public ResponseEntity<List<NhanVienResponse>> findByTuoiLessThan(@RequestParam("tuoi") int tuoi){
+        return ResponseEntity.ok(nhanVienService.findByTuoiLessThan(tuoi));
+    }
+
+
 }
