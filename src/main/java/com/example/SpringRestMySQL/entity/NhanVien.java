@@ -35,7 +35,7 @@ public class NhanVien {
     @Column(name="TenNhanVien")
     private String tenNhanVien;
     @Column(name="tuoi")
-    private int tuoi;
+    private Integer tuoi;
     @Column(name="DiaChi")
     private String diaChi;
     @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})

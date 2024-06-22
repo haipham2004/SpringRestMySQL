@@ -13,6 +13,8 @@ import lombok.Setter;
 @Builder
 public class NhanVienResponse {
 
+    private int id;
+
     private String maNhanVien;
 
     private String tenNhanVien;
